@@ -1,0 +1,30 @@
+{
+  "name": "assignment-4-express-routing-mongodb-mongoose-sramaswamy65",
+  "version": "1.0.0",
+  "description": "This assignment builds a book review website where you can review any book.  The input form takes the title of the book, the author of the book, reviewer's name and the review as input.  When the user clicks on the submit button, this application will display a page containing all the reviews of books thus far.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www",
+    "start-dev": "nodemon --inspect ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-sramaswamy65.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-sramaswamy65/issues"
+  },
+  "homepage": "https://github.com/HarvardDCENode/assignment-4-express-routing-mongodb-mongoose-sramaswamy65#readme",
+  "dependencies": {
+    "connect-cookies": "0.0.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.11",
+    "pug": "^2.0.3"
+  }
+}

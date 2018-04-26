@@ -1,0 +1,25 @@
+form(action ="/bookreviews/update/"+bookreview._id method='post')
+    label(for="title") 
+      strong Title:
+    input#title(type="text", value = bookreview.title name="title")
+    br
+    label(for="author") 
+      strong Author:
+    input#author(type="text", value = bookreview.author name="author")
+    br
+    label(for="reviewer")
+      strong Reviewer:
+    input#reviewer(type="text", value = bookreview.reviewer name="reviewer" )
+    br
+    label(for="review")
+      strong Review:
+    textarea( name="review", value = bookreview.review cols="100", rows="15") #{bookreview.review}
+    br
+    label(for="_id")
+    input#_id(type="hidden", value = bookreview._id name="_id" )
+    br
+    input#updateBtn(type="submit", value="Update Your Review")
+h2 Delete this review
+form(action="/bookreviews/delete/" + bookreview._id method="get")
+      input#delBtn(type="submit" name="delButton" value="Delete Review")
+      

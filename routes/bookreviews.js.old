@@ -1,0 +1,84 @@
+var express = require('express');
+var router = express.Router();
+var app = express();
+
+var flash = require('express-flash');
+
+var BookReview = require('../models/bookReviewModel');
+
+// flash messaging
+router.use(flash());
+
+router.get('/',(req,res,next)=> {
+    BookReview.find({})
+      .then((bookReviews)=>{
+        res.render('bookreviews', {
+          bookreviews: bookReviews
+      });
+    })
+    .catch( (err)=>{
+        console.log(err);
+        res.end("ERROR!");
+    });
+});
+
+router.get('/:bookreviewid', (req,res,next)=>{
+    console.log("finding "+ req.params.bookreviewid);
+    BookReview.findOne({'_id': req.params.bookreviewid})
+     .then( (bookreview)=>{
+       res.render('updatebookreview',{
+         bookreview:bookreview,
+         flashMsg: req.flash("bookReviewFindError")
+       });
+     });
+});
+
+
+router.post('/:bookreviewid', (req,res,next)=>{
+    BookReview.findOne({'_id': req.params.bookreviewid})
+     .then( (bookreview)=>{
+       var data = {
+         title : req.body.title,
+         author : req.body.author,
+         reviewer : req.body.reviewer,
+         review : req.body.review,
+       }
+       bookreview.set(data);
+       bookreview.save().
+         then( ()=>{
+           res.redirect('/bookreviews');      
+       });
+     }).catch( (err)=>{
+         if(err) console.log(err);
+     });
+});
+router.post('/', (req,res,next)=> {
+
+    var bookreview = {
+        title : req.body.title,
+        author : req.body.author,
+        reviewer : req.body.reviewer,
+        review : req.body.review,
+    }
+    var bookReview = new BookReview(bookreview);
+    bookReview.save()
+      .then(()=>{
+        res.redirect('/bookreviews');
+    })
+    .catch( (err)=>{
+        console.log(err);
+        throw new Error("BookReviewSaveError", bookreview);
+    });
+});
+
+router.use( (err,req,res,next)=>{
+    console.error(err.stack);
+    if (err.message == "BookReviewSaveError"){
+        req.flash('bookReviewSaveError', "There was a problem saving the bookreview");
+        res.redirect('/bookreviews');
+    } else {
+        next(err);
+    }
+});
+
+module.exports = router;
