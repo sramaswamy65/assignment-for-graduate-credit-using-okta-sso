@@ -33,7 +33,7 @@ let oidc = new ExpressOIDC({
   client_secret: "2i-vRn7EXHmMFYHymGIKpX_nEoVi7aYjRFv09Mvv",
   redirect_uri: "http://localhost:8080/authorization-code/callback",
   routes: {
-    callback: { defaultRedirect: "/dashboard" }
+    callback: { defaultRedirect: "/bookreviews" }
   },
   scope: 'openid profile'
 });
@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/dashboard", oidc.ensureAuthenticated(), (req, res) => {
+app.get("/bookreviews", oidc.ensureAuthenticated(), (req, res) => {
   console.log(req.userinfo);
   console.log("XXXXXX");
   console.log(req.userinfo.name);

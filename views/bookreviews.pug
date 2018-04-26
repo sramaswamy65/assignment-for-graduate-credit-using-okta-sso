@@ -1,0 +1,9 @@
+h1 Book Reviews  
+
+.row
+  each bookreview in bookreviews
+    h4 Title: #{bookreview.title}; Author: #{bookreview.author}; Reviewer: #{bookreview.reviewer}
+    p Review: #{bookreview.review}
+
+
+li User: #{user.preferred_username}

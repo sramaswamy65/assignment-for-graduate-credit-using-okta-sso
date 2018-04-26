@@ -1,6 +1,6 @@
 var app = require('../app');
 var http = require('http');
-var port = 8090;
+var port = 8080;
 app.set('port', port);
 
 var server = http.createServer(app);

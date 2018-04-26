@@ -1,0 +1,25 @@
+extends layout
+
+block content
+
+  li User: #{user.preferred_username}
+
+  p.
+     If you'd like to logout, please #[a(href="/logout") click here].
+  form(action ="/bookreviews" method = get)
+    .input
+      h1 Title:
+      input(type="text", name="title", required)
+    .input
+      h1 Author:
+      input(type="text", name="author", required)
+    .input
+      h1 Reviewer:
+      input(type="text", name="reviewer", required)
+    .input
+      h1 Review:
+      textarea(name="review", cols="100", rows="5", required)
+    .actions
+      input(type="submit", value="submit")
+   
+

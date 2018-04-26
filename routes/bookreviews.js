@@ -1,22 +1,36 @@
 var express = require('express');
-var bookreviews = require('../controllers/bookReviewController');
 var router = express.Router();
 
+const ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
 
-// Read all the book reviews
-router.get('/', bookreviews.list);
 
-// Create a book review
-router.post('/create', bookreviews.create);
+let oidc = new ExpressOIDC({
+  issuer: "https://dev-766675.oktapreview.com/oauth2/default",
+  client_id: "0oaeu2crctAUZhWzl0h7",
+  client_secret: "2i-vRn7EXHmMFYHymGIKpX_nEoVi7aYjRFv09Mvv",
+  redirect_uri: "http://localhost:8080/authorization-code/callback",
+  routes: {
+    callback: { defaultRedirect: "/bookreviews" }
+  },
+  scope: 'openid profile'
+});
 
-// Read a single bookreview in an edit form
-router.get('/:bookreviewid', bookreviews.read);
-
-// Update a single bookreview
-router.post('/update/:bookreviewid', bookreviews.update);
-
-// Delete a single bookreview
-router.get('/delete/:bookreviewid', bookreviews.delete);
-
+router.get("/", oidc.ensureAuthenticated(), (req, res) => 
+{
+    console.log("XXXX INSIDE GET");
+    console.log(req.userinfo.name);
+    if (req.query.title) {
+        res.app.locals.bookreviews.push(
+                {title:req.query.title,
+                 author:req.query.author,
+                 reviewer:req.query.reviewer,
+                 review:req.query.review});
+                                
+        res.render("bookreviews", {"bookreviewlist":res.app.locals.bookreviews,  user: req.userinfo });
+    }
+    else
+        res.render('bookreviewhome', { user: req.userinfo });
+    console.log(req);
+});
 
 module.exports = router;
