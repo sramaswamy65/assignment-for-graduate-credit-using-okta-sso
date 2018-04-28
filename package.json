@@ -1,7 +1,7 @@
 {
   "name": "assignment-3-express-routing-and-templates-sramaswamy65",
   "version": "1.0.0",
-  "description": "Assignment 3 for CSCIE-31",
+  "description": "Graduate Credit Assignment for CSCIE-31",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
