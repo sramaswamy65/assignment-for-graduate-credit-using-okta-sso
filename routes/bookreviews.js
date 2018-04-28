@@ -17,20 +17,22 @@ let oidc = new ExpressOIDC({
 
 router.get("/", oidc.ensureAuthenticated(), (req, res) => 
 {
+
+    if (req.isAuthenticated()) {
+    console.log('Logged in');
+  } else {
+    console.log('Not logged in');
+  }
     console.log("XXXX INSIDE GET");
     console.log(req.userinfo.name);
     if (req.query.title) {
         res.app.locals.bookreviews.push(
                 {title:req.query.title,
                  author:req.query.author,
-                 reviewer:req.query.reviewer,
+                 reviewer:req.userinfo.preferred_username,
                  review:req.query.review});
-                                
-        res.render("bookreviews", {"bookreviewlist":res.app.locals.bookreviews,  user: req.userinfo });
-    }
-    else
-        res.render('bookreviewhome', { user: req.userinfo });
-    console.log(req);
+    }                                
+    res.render("bookreviewhome", {"bookreviewlist":res.app.locals.bookreviews,  user: req.userinfo });
 });
 
 module.exports = router;

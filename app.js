@@ -1,9 +1,15 @@
 var express = require('express');
 var path = require('path');
 var url = require('url');
+
+// Import express-session, which will manage user sessions for your website, and oidc-middleware, which will handle all of the OIDC implementation details for your website
+
 const session = require("express-session");
 const ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
 var app = express();
+
+//    cookie.httponly: this option tells the browser that JavaScript code should not be allowed to access the session data. JavaScript on clients is a dangerous thing, ensuring your cookies that contain identity information are safe is always of top importance.
+//   secret: this option should be a long random string that you create. It should be the same across all your webservers, but never shared publicly or stored in a public place. This value is used to ensure your user’s identity information is protected cryptographically inside of cookies.
 
 app.use(session({
   cookie: { httpOnly: true },
@@ -44,6 +50,7 @@ app.get("/", (req, res) => {
 app.get("/logout", (req, res) => {
   console.log("XXXXX LOG OUT CALLED");
   req.logout();
+  console.log(req.userinfo);
   res.redirect("/");
 });
 

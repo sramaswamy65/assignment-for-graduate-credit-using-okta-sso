@@ -3,5 +3,6 @@ html
     title= title
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
   body
-    h1 Review a Book
+    h4.text-center User: #{user.preferred_username}  #[a(href="/logout") logout]
+    h1 Review a Book                          
     block content

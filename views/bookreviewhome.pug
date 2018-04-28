@@ -2,10 +2,6 @@ extends layout
 
 block content
 
-  li User: #{user.preferred_username}
-
-  p.
-     If you'd like to logout, please #[a(href="/logout") click here].
   form(action ="/bookreviews" method = get)
     .input
       h1 Title:
@@ -14,12 +10,15 @@ block content
       h1 Author:
       input(type="text", name="author", required)
     .input
-      h1 Reviewer:
-      input(type="text", name="reviewer", required)
-    .input
       h1 Review:
       textarea(name="review", cols="100", rows="5", required)
     .actions
       input(type="submit", value="submit")
    
 
+  h1 Book Reviews  
+
+  .row
+    each bookreview in bookreviews
+      h4 Title: #{bookreview.title}; Author: #{bookreview.author}; Reviewer: #{bookreview.reviewer}
+      p Review: #{bookreview.review}
